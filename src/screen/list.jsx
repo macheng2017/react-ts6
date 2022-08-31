@@ -10,8 +10,8 @@ export const List = ({ list }) => {
     <tbody>
     {
       list.map(v => <tr>
-          <td> v.name</td>
-          <td> v.id</td>
+          <td> {v.name}</td>
+          <td> {v.id}</td>
         </tr>)
     }
     </tbody>

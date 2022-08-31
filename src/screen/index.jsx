@@ -10,16 +10,7 @@ export const ProjectListScreen = () => {
     name: "",
     personId: ""
   });
-  let [users, setUsers] = useState([
-    {
-      name: "小明",
-      personId: "1"
-    },
-    {
-      name: "小花",
-      personId: "2"
-    }
-  ]);
+  const [users, setUsers] = useState([]);
 
   const [list, setList] = useState([]);
   useEffect(() => {
@@ -29,6 +20,15 @@ export const ProjectListScreen = () => {
       }
     });
   }, [param]);
+
+  useEffect(() => {
+    fetch(`${baseUrl}/users`).then(async resp => {
+      if (resp.ok) {
+        setUsers(await resp.json());
+      }
+    });
+  },[]);
+
   return <div>
     <SearchPanel param={param} setParam={setParam} users={users} />
     <List list={list}></List>
