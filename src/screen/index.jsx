@@ -8,7 +8,7 @@ const baseUrl = process.env.REACT_APP_API_URL;
 export const ProjectListScreen = () => {
   let [param, setParam] = useState({
     name: "",
-    personId: ""
+    id: ""
   });
   const [users, setUsers] = useState([]);
 
@@ -27,10 +27,10 @@ export const ProjectListScreen = () => {
         setUsers(await resp.json());
       }
     });
-  },[]);
+  },[param]);
 
   return <div>
     <SearchPanel param={param} setParam={setParam} users={users} />
-    <List list={list}></List>
+    <List list={list} users={users}></List>
   </div>;
 };
