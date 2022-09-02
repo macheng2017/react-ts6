@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const isFalsy = (res) => {
   return res === 0 ? true : !!res;
@@ -19,4 +19,16 @@ export const useMount = (callback) => {
   useEffect(() => {
     callback();
   }, []);
+};
+
+export const useDebounce = (value, delay) => {
+  const [debounceValue, setDebounceValue] = useState();
+  useEffect(() => {
+    let timeout = setTimeout(() => {
+      setDebounceValue(value);
+    }, delay);
+    return () => clearTimeout(timeout);
+
+  }, [value, delay]);
+  return debounceValue;
 };
