@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
-const isFalsy = (res) => {
+const isFalsy = (res: any) => {
   return res === 0 ? true : !!res;
 };
 
-export const cleanObj = (obj) => {
+export const cleanObj = (obj: object) => {
   const res = { ...obj };
   Object.keys(res).forEach(k => {
+    // @ts-ignore
     if (!isFalsy(res[k])) {
+      // @ts-ignore
       delete res[k];
     }
   });
@@ -15,18 +17,17 @@ export const cleanObj = (obj) => {
 };
 
 // 创建一个自定义hook,来替换只加载一次的useEffect
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
   }, []);
 };
 
-export const useDebounce = (value, delay) => {
-  const [debounceValue, setDebounceValue] = useState();
+export const useDebounce = <T>(value: T, delay?: number) => {
+  const [debounceValue, setDebounceValue] = useState(value);
   useEffect(() => {
-    let timeout = setTimeout(() => {
-      setDebounceValue(value);
-    }, delay);
+    let timeout = setTimeout(() => setDebounceValue(value)
+      , delay);
     return () => clearTimeout(timeout);
 
   }, [value, delay]);
