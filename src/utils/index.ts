@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { clear } from "@testing-library/user-event/dist/clear";
 
 const isFalsy = (res: any) => {
   return res === 0 ? true : !!res;
@@ -34,21 +33,20 @@ export const useDebounce = <T>(value: T, delay?: number) => {
   }, [value, delay]);
   return debounceValue;
 };
-
-interface Person {
-  name: string,
-  age: number
-}
-
-export const useArray = (persons: Person[]) => {
+// interface Person {
+//   name: string,
+//   age: number
+// }
+//使用泛型就不用在这里定义,添加特定的类型了比如上面的Person,直接使用传入的类型即可
+export const useArray = <T>(persons: T[]) => {
   // hello，请把作业写在这里吧，写完记得再对照作业要求检查一下
   const [value, setValue] = useState([...persons]);
-  const add = (person: Person) => {
+  const add = (person: T) => {
     setValue([...value, person]);
   };
   const removeIndex = (index: number) => {
     const cpValue = [...value];
-   cpValue.splice(index,1)
+    cpValue.splice(index, 1);
     setValue([...cpValue]);
   };
   const clear = () => {
