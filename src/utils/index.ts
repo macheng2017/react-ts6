@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 const isFalsy = (res: any) => {
   return res === 0 ? true : !!res;
@@ -33,3 +34,26 @@ export const useDebounce = <T>(value: T, delay?: number) => {
   }, [value, delay]);
   return debounceValue;
 };
+
+interface Person {
+  name: string,
+  age: number
+}
+
+export const useArray = (persons: Person[]) => {
+  // hello，请把作业写在这里吧，写完记得再对照作业要求检查一下
+  const [value, setValue] = useState([...persons]);
+  const add = (person: Person) => {
+    setValue([...value, person]);
+  };
+  const removeIndex = (index: number) => {
+    const cpValue = [...value];
+   cpValue.splice(index,1)
+    setValue([...cpValue]);
+  };
+  const clear = () => {
+    setValue([]);
+  };
+  return { add, value, clear, removeIndex };
+};
+
