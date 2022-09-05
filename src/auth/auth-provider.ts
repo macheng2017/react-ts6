@@ -4,7 +4,7 @@ import { User } from "../screen/search-panel";
 const apiUrl = process.env["REACT_APP_API_URL"];
 const token = "___token___";
 
-const handleLogin = (user: User) => {
+const handleLogin = ({ user }: { user: User }) => {
   window.localStorage.setItem(token, user.token);
 };
 
