@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { Login } from "../../auth/auth-provider";
+import { login } from "../../auth/auth-provider";
 
 
 export interface User {
@@ -14,7 +14,7 @@ export const LoginScreen = () => {
     evt.preventDefault();
     const username = (evt.currentTarget.elements[0] as HTMLInputElement).value;
     const password = (evt.currentTarget.elements[1] as HTMLInputElement).value;
-    Login({ username, password });
+    login({ username, password });
   };
 
   return <div>

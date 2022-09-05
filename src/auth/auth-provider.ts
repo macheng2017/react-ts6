@@ -2,33 +2,44 @@ import { User } from "../screen/search-panel";
 
 
 const apiUrl = process.env["REACT_APP_API_URL"];
-const token = "___token___";
+const localStorageKey = "___token___";
 
-const handleLogin = ({ user }: { user: User }) => {
-  window.localStorage.setItem(token, user.token);
+const handleUserResponse = ({ user }: { user: User }) => {
+  window.localStorage.setItem(localStorageKey, user.token);
+  return user;
 };
 
-export const Login = (param: { username: string, password: string }) => {
-  fetch(`${apiUrl}/login`, {
+export const login = (param: { username: string, password: string }) => {
+  return fetch(`${apiUrl}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(param)
-  }).then(async r => handleLogin(await r.json()));
+  }).then(async r => {
+    if (r.ok) {
+      return handleUserResponse(await r.json());
+    }
+    return Promise.reject(param);
+  });
 };
 
 
-export const Register = (param: { username: string, password: string }) => {
-  fetch(`${apiUrl}/register`, {
+export const register = async (param: { username: string, password: string }) => {
+  return fetch(`${apiUrl}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(param)
-  }).then(async r => handleLogin(await r.json()));
+  }).then(async r => {
+    if (r.ok) {
+      return handleUserResponse(await r.json());
+    }
+    return Promise.reject(param);
+  });
 };
 
-export const Logout = () => {
-  window.localStorage.removeItem(token);
+export const logout = async () => {
+  await window.localStorage.removeItem(localStorageKey);
 };
