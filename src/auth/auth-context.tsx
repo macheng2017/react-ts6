@@ -1,13 +1,26 @@
-import { createContext, useState } from "react";
-import { User } from "../screen/login";
+import React, { createContext, useState } from "react";
 
-const AuthContext = createContext(undefined);
-AuthContext.displayName = "authContext";
+import * as auth from "./auth-provider";
+import { User } from "../screen/search-panel";
+
+interface AuthForm {
+  username: string;
+  password: string;
+}
+
+const AuthContext = createContext<{
+  user: User | null,
+  login: (form: AuthForm) => Promise<void>,
+  register: (form: AuthForm) => Promise<void>,
+  logout: () => Promise<void>,
+} | undefined>(undefined);
+AuthContext.displayName = "AuthContext";
 
 export const AuthProvider = () => {
-  const [user, setUser] = useState(null);
-  const login = (user: User) => login(user).then(v => setUser);
-  const register = (user: User) => register(user).then(v => setUser);
-  const logout = () => logout().then(v => setUser(null));
-  return <AuthProvider.Provider value={{ user, login, register, logout }} />;
+  const [user, setUser] = useState<User | null>(null);
+  const login = (form: AuthForm) => auth.login(form).then(user => setUser(user));
+  const register = (form: AuthForm) => auth.register(form).then(user => setUser(user));
+  const logout = () => auth.logout().then(v => setUser(null));
+  // 注意:这是使用的 AuthContext 也就是上面使用createContext创建的名字
+  return <AuthContext.Provider value={{ user, login, register, logout }} />;
 };
