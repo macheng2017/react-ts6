@@ -24,3 +24,11 @@ export const AuthProvider = () => {
   // 注意:这是使用的 AuthContext 也就是上面使用createContext创建的名字
   return <AuthContext.Provider value={{ user, login, register, logout }} />;
 };
+
+export const useAuth = () => {
+  const context = React.useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
