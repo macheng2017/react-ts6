@@ -2,7 +2,7 @@ import { RegisterScreen } from "./register";
 import { LoginScreen } from "./login";
 import { useState } from "react";
 
-export const IsAuthentication = () => {
+export const UnauthenticationApp = () => {
   const [isLogin, setIsLogin] = useState(true);
   return <div>
     {isLogin ? <LoginScreen /> : <RegisterScreen />}
