@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useState } from "react";
 
-import * as auth from "./auth-provider";
+import * as auth from "../auth/auth-provider";
 import { User } from "../screen/search-panel";
 
 interface AuthForm {

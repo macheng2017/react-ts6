@@ -4,18 +4,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { loadDevTools } from "jira-dev-tool";
-import { AuthProvider } from "./auth/auth-context";
+
+import { AuthProviders } from "./context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 loadDevTools(() => {
   root.render(
-    <AuthProvider>
+    <AuthProviders>
       <React.StrictMode>
         <App />
       </React.StrictMode>
-    </AuthProvider>
+    </AuthProviders>
   );
 });
 

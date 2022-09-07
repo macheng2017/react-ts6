@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { useAuth } from "../../auth/auth-context";
+import { useAuth } from "../../context/auth-context";
 
 
 export interface User {
