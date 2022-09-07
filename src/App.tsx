@@ -1,14 +1,12 @@
-import React from "react";
 import "./App.css";
-// import { ProjectListScreen } from "./screen";
-import { LoginScreen } from "./screen/login";
+import { AuthenticationApp } from "./authentication-app";
 
 function App() {
   return (
     <div className="App">
       {/*<ProjectListScreen />*/}
       {/*<TsReactTest/>*/}
-      <LoginScreen/>
+      <AuthenticationApp/>
     </div>
   );
 }

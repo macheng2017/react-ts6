@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { useAuth } from "../../context/auth-context";
+import { useAuth } from "../context/auth-context";
 
 
 export interface User {
@@ -10,7 +10,7 @@ export interface User {
 
 export const LoginScreen = () => {
 
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const username = (evt.currentTarget.elements[0] as HTMLInputElement).value;
@@ -20,7 +20,6 @@ export const LoginScreen = () => {
 
   return <div>
     <form onSubmit={handleSubmit}>
-      {user ? user.name + "登录成功" : "未登录"}
       <div>
         <label htmlFor={"username"}>username</label>
         <input type={"username"} />
